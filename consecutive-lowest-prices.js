@@ -2,8 +2,8 @@
 
 //Argument should be a JSON object:
 //{
-//  "remaining_hours": CHARGE_REMAINING_HOURS, 
-//  "finished_hour": CHARGE_FINISHED_HOUR, 
+//  "remaining_hours": 3, 
+//  "finished_hour": 8, 
 //  "prices": POWER_PRICES_JSON
 //}
 const arguments = JSON.parse(args[0]);
@@ -12,18 +12,14 @@ const hours = parseInt(arguments.remaining_hours);
 //typically at 08:00 -> 8
 const finished_hour = parseInt(arguments.finished_hour);
 
-//pricedata fetched from Heating Controller
-const priceData = arguments.prices;
-
-//{
-//  "remaining_hours": 4,
-//  "finished_hour": 8,
-//  "prices": [
+// Price data fetched from Heating Controller
+// Be aware of that the timestamps is in UTC time
+//  [
 //    {"startsAt":"2023-01-23T23:00:00.000Z","time":1674514800,"price":0.56033},
 //    {"startsAt":"2023-01-24T00:00:00.000Z","time":1674518400,"price":0.5583},
 //    {"startsAt":"2023-01-24T01:00:00.000Z","time":1674522000,"price":0.55841}
 //  ]
-//}
+const priceData = arguments.prices;
 
 function findLowestPriceSeries(data, hours) {
   let lowestSum = Number.MAX_VALUE;
